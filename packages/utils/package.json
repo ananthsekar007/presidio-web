@@ -1,0 +1,55 @@
+{
+  "name": "@gogocode-package/backend-utils",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "src/index",
+  "author": "GoGoSoon",
+  "license": "ISC",
+  "scripts": {
+    "test": "tsc && jest --forceExit",
+    "test:coverage": "tsc && jest --forceExit --coverage",
+    "tsc": "tsc"
+  },
+  "dependencies": {
+    "@gogocode-package/database": "*",
+    "uuid": "^8.3.0"
+  },
+  "peerDependencies": {
+    "@types/express": "^4.17.6",
+    "express": "^4.17.1",
+    "typescript": "^3.9.5"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "tslint": "^6.1.2",
+    "jest": "^26.2.2",
+    "ts-jest": "^26.2.0",
+    "date-fns-tz": "^1.0.12"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testPathIgnorePatterns": [
+      "bin"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.tsx",
+      "src/**/*.ts",
+      "src/**/*.js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "src/types",
+      "src/node_modules/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 75,
+        "functions": 75,
+        "lines": 75,
+        "statements": 75
+      }
+    }
+  }
+}

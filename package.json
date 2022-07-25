@@ -1,0 +1,68 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "npmClient": "yarn",
+  "main": "src/index",
+  "author": "GoGoSoon",
+  "license": "ISC",
+  "scripts": {
+    "install": "./node_modules/.bin/lerna bootstrap",
+    "dev": "cd app/ && yarn dev",
+    "test": "lerna bootstrap && lerna run --stream test",
+    "test:dry": "lerna bootstrap && lerna run  --no-bail --stream test",
+    "test:dev": " DOTENV_CONFIG_PATH=app/.env jest -c jest_dev.config.js --silent --verbose --watch",
+    "test:coverage": "lerna bootstrap && lerna run  --stream test:coverage",
+    "db:migrate": "yarn migration:compile && cp sql-migration/* bin && cd bin && ts-node ../node_modules/.bin/sequelize db:migrate",
+    "db:rollback": "yarn migration:compile && cd bin && ts-node ../node_modules/.bin/sequelize db:migrate:undo",
+    "db:new": "./packages/utils/scripts/generate-migration.sh",
+    "db:email": "./packages/notifications/scripts/email-migration-generator.sh",
+    "migration:compile": "yarn migration:clear && yarn migration:config && tsc -p tsconfig.migration.json && yarn migration:move",
+    "migration:clear": "rm -rf bin && mkdir bin && mkdir bin/tmp ",
+    "migration:config": "mkdir bin/config && cp app/.env ./bin/.env &&  tsc -p tsconfig.migration.config.json",
+    "migration:move": "cd bin && mkdir ./migrations && cd tmp && find . -mindepth 1 -type f -print -exec mv {} ../migrations \\; ",
+    "lint": "eslint --ext .ts --ext .tsx ."
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "tslint": "^6.1.2",
+    "@types/jest": "^26.0.3",
+    "concurrently": "^5.2.0",
+    "husky": "^4.2.5",
+    "jest": "^26.2.2",
+    "ts-jest": "^26.2.0",
+    "lerna": "^3.22.1",
+    "prettier": "^2.0.5",
+    "pretty-quick": "^2.0.1",
+    "@typescript-eslint/eslint-plugin": "^3.10.1",
+    "eslint-plugin-import": "^2.20.2",
+    "@typescript-eslint/parser": "^3.10.1",
+    "eslint": "^6.8.0"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testPathIgnorePatterns": [
+      "bin"
+    ]
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "mobile"
+    ]
+  },
+  "workspaces": [
+    "packages/**",
+    "app/**"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "engines": {
+    "node": ">=10"
+  }
+}

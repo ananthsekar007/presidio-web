@@ -1,0 +1,7 @@
+schema.gql
+.env
+node_modules
+firebase_configurations.json
+bin/*
+yarn-error.log
+coverage

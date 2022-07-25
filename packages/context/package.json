@@ -1,0 +1,31 @@
+{
+  "name": "@gogocode-package/hoa-context",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "src/index",
+  "author": "GoGoSoon",
+  "license": "ISC",
+  "dependencies": {
+    "@gogocode-package/backend-utils": "*",
+    "@gogocode-package/database": "*",
+    "jsonwebtoken": "^8.5.1"
+  },
+  "peerDependencies": {
+    "@types/express": "^4.17.6",
+    "express": "^4.17.1",
+    "typescript": "^3.9.5"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "tslint": "^6.1.2"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testPathIgnorePatterns": [
+      "bin"
+    ]
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "name": "@gogocode-package/backend",
+  "version": "6.3.57",
+  "description": "",
+  "private": true,
+  "npmClient": "yarn",
+  "main": "src/index",
+  "author": "GoGoSoon",
+  "license": "ISC",
+  "scripts": {
+    "prod": "echo \"For development use yarn dev command.\" && yarn clean && yarn build && node bin/server/server.js",
+    "dev": "nodemon --exec 'node --require ts-node/register/transpile-only ./server/server.ts -e ts,graphql'",
+    "start": "yarn dev",
+    "server": "ts-node --transpile-only  ./server/server.ts -e ts,graphql",
+    "dev:debug": "nodemon --inspect ./server/server.ts",
+    "clean": "rm -rf ./bin && mkdir bin",
+    "build": "tsc && cp .env ./bin/ && cp -r ./assets ./bin/",
+    "test": "tsc && jest --verbose",
+    "test:dev": "jest -c jest_dev.config.js --silent --verbose --watch",
+    "test:coverage": "tsc && jest --forceExit --coverage",
+    "tsc": "tsc",
+    "tslint": "tslint --project tsconfig.json",
+    "tslint:fix": "tslint --fix --project tsconfig.json"
+  },
+  "dependencies": {
+    "@gogocode-package/backend-utils": "*",
+    "@gogocode-package/hoa-context": "*",
+    "@gogocode-package/error_handler-backend": "*",
+    "@types/cors": "^2.8.6",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.7",
+    "@types/graphql": "^14.5.0",
+    "@types/graphql-depth-limit": "^1.1.2",
+    "@types/helmet": "^0.0.47",
+    "@types/lodash": "^4.14.155",
+    "@types/node": "^14.0.27",
+    "@types/sequelize": "^4.28.9",
+    "@types/supertest": "^2.0.9",
+    "@types/validator": "^13.0.0",
+    "apollo-server-express": "^2.16.1",
+    "body-parser": "^1.19.0",
+    "class-validator": "^0.12.2",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "graphql": "^15.3.0",
+    "graphql-depth-limit": "^1.1.0",
+    "graphql-import": "^1.0.2",
+    "graphql-import-node": "^0.0.4",
+    "helmet": "^3.23.1",
+    "http": "^0.0.1-security",
+    "lodash": "^4.17.15",
+    "moment": "^2.26.0",
+    "mysql2": "^2.1.0",
+    "nodeify": "^1.0.0",
+    "nodemon": "^2.0.4",
+    "quoted-printable": "^1.0.0",
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "^5.21.13",
+    "sequelize-cli": "^5.5.1",
+    "supertest": "^4.0.2",
+    "ts-node": "^8.10.2",
+    "type-graphql": "^1.0.0-rc.3",
+    "typescript": "^3.9.5",
+    "sanitize-html": "2.0.0",
+    "@types/sanitize-html": "^1.27.0",
+    "pdf-lib": "^1.16.0",
+    "bcrypt": "^5.0.0",
+    "@types/bcrypt": "^3.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "@types/jsonwebtoken": "^8.5.1",
+    "express-session": "1.17.1",
+    "express-formidable": "1.2.0",
+    "uuid": "^8.3.2",
+    "@types/uuid": "^8.3.0",
+    "number-to-text": "0.3.9",
+    "multiparty": "^4.2.2",
+    "@types/multiparty": "^0.0.33",
+    "axios": "0.24.0",
+    "iconv-lite": "0.6.3"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "tslint": "^6.1.2",
+    "jest": "^26.2.2",
+    "ts-jest": "^26.2.0"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testPathIgnorePatterns": [
+      "bin"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.tsx",
+      "src/**/*.ts",
+      "src/**/*.js",
+      "server/**/*.js",
+      "server/**/*.ts",
+      "server/**/*.tsx"
+    ],
+    "coveragePathIgnorePatterns": [
+      "src/types",
+      "src/node_modules/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 75,
+        "functions": 75,
+        "lines": 75,
+        "statements": 75
+      }
+    }
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "mobile"
+    ]
+  },
+  "workspaces": [
+    "packages/**"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "engines": {
+    "node": ">=10"
+  }
+}
