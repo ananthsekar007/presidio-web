@@ -3,6 +3,7 @@ import { UserModel } from "../auth/UserModel";
 import { validateUser } from "../middlewares/validateUser";
 import { Context } from "../contexts/Context";
 import { VaccinationCenterModel } from "./VaccinationCenterModel";
+import { AppointmentModel } from "../appointments/AppointmentModel";
 
 @InputType()
 class VaccinationCenterInput {
@@ -68,6 +69,15 @@ export class VaccinationCenterResolver {
     });
 
     if (!existingCenter) throw new Error("Requested Center is not found");
+
+    let appointments = await AppointmentModel.findAll({
+      where: {
+        center_id: centerId,
+      },
+    });
+
+    if (appointments.length > 0)
+      throw new Error("Cannot delete center because there are appointments scheduled in this center!");
 
     await existingCenter.destroy();
 
