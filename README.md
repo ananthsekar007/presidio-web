@@ -13,6 +13,7 @@ DB_USER=root
 DB_PASS=
 DB_NAME=
 PORT=8000
+JWT_SECRET_TOKEN=your_token
 ```
 
 5. Run `yarn dev`
@@ -48,12 +49,3 @@ your project has been setup successfully and you're good to go.
 3. To run your migration, run `yarn db:migrate` in project root directory
 4. During project setup, it is enough to run `yarn db:migrate`
 
-## Setup Stripe CLI
-
-1. Install [Stripe CLI](https://stripe.com/docs/stripe-cli#install) for your environment
-2. Login to Stripe account for that project using `stripe login` command
-3. Listen to Stripe events with the following command. Eg. This command will listen to only stripe payment succeeded trigger `stripe listen --events payment_intent.succeeded --forward-to localhost:8000/webhook`
-
-## Dev Notes
-
-Import hoa_dev.sql file from cloud.gogosoon.com for Dummy data
