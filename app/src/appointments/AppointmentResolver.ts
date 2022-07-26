@@ -26,7 +26,7 @@ export class AppointmentResolver {
       where: {
         user_id: context.user.user_id,
         appointment_time: {
-          [Op.gte]: moment(new Date()),
+          [Op.gte]: moment(new Date().setHours(0, 0, 0, 0)),
         },
       },
       order: [["appointment_time", "ASC"]],
@@ -40,7 +40,7 @@ export class AppointmentResolver {
   @Query(() => [AppointmentModel])
   @UseMiddleware(validateUser)
   async get_inactive_appointments(@Ctx() context: Context): Promise<AppointmentModel[]> {
-    let activeAppointments = await AppointmentModel.findAll({
+    let inActiveAppointments = await AppointmentModel.findAll({
       where: {
         user_id: context.user.user_id,
         appointment_time: {
@@ -51,8 +51,8 @@ export class AppointmentResolver {
       include: [UserModel, VaccinationCenterModel],
     });
 
-    if (activeAppointments.length === 0) throw new Error("There are no active appointments");
-    else return activeAppointments;
+    if (inActiveAppointments.length === 0) throw new Error("There are no active appointments");
+    else return inActiveAppointments;
   }
 
   @Mutation(() => String)
